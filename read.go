@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	md "github.com/MichaelMure/go-term-markdown"
 )
 
 func readArticle(articleName string) {
@@ -19,8 +21,12 @@ func readArticle(articleName string) {
 	for scanner.Scan() {
 		articleApi += scanner.Text() + "\n"
 	}
-	article := make(map[string]any)
-	api := []byte(articleApi)
-	json.Unmarshal(api, &article)
-	fmt.Println(article["body_markdown"])
+	article := make(map[string]interface{})
+	json.Unmarshal([]byte(articleApi), &article)
+
+	title := article["title"].(string)
+	body := article["body_markdown"].(string)	
+	output := md.Render(string(body), 80, 6)
+	fmt.Println("\033[1m" + title + "\033[0m")
+	fmt.Println(string(output))
 }
