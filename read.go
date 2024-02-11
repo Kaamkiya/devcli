@@ -26,11 +26,13 @@ func readArticle(articleName string) {
 
 	title := article["title"].(string)
 	body := article["body_markdown"].(string)
-	username := article["user"]["name"].(string)
 	publishDate := article["readable_publish_date"].(string)
+	url := article["canonical_url"].(string)
 
 	output := md.Render(string(body), 80, 6)
+	
 	fmt.Println("\033[1m" + title + "\033[0m")
 	fmt.Println(string(output))
-	fmt.Printf("Written by %s, %s\n", username, publishDate)
+	fmt.Printf("\033[4;38;5;245mPublished on %s\n", publishDate)
+	fmt.Printf("See the original article here: \033[38;5;74m%s\033[0m\n", url)
 }
