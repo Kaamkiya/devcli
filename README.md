@@ -9,7 +9,7 @@ not read DEV articles on the CLI?" So here I am, with a CLI app just for that.
 
 ## Features
 
-* [ ] Reading articles
+* [x] Reading articles
 * [ ] Posting articles
 
 ## Contributing
