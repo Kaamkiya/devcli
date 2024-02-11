@@ -14,7 +14,9 @@ func main() {
 	switch os.Args[1] {
 	case "read":
 		if len(os.Args) < 3 {
-			fmt.Println("Error")
+			fmt.Println("Usage: 
+  devcli read <author>/<article> [<options>]
+  devcli read <article_id> [<options>]")
 			os.Exit(-1)
 		}
 		readArticle(os.Args[2])
