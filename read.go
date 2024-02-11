@@ -25,8 +25,12 @@ func readArticle(articleName string) {
 	json.Unmarshal([]byte(articleApi), &article)
 
 	title := article["title"].(string)
-	body := article["body_markdown"].(string)	
+	body := article["body_markdown"].(string)
+	username := article["user"]["name"].(string)
+	publishDate := article["readable_publish_date"].(string)
+
 	output := md.Render(string(body), 80, 6)
 	fmt.Println("\033[1m" + title + "\033[0m")
 	fmt.Println(string(output))
+	fmt.Printf("Written by %s, %s\n", username, publishDate)
 }
