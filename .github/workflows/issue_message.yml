@@ -21,8 +21,7 @@ jobs:
             busy working on many types of features, please give us time to get
             back to you.
             
-            To any amazing contributors: [issues labeled `bug`
-            ](https://github.com/Kaamkiya/devcli/issues?q=is%3Aopen+label%3Abug)
+            To any amazing contributors: [issues labeled `bug`](https://github.com/Kaamkiya/devcli/issues?q=is%3Aopen+label%3Abug)
             are always up for grabs, but for feature requests, please wait until
             we add a `ready for dev` before starting to work on it.
 
@@ -30,5 +29,4 @@ jobs:
             claimed the issue and need help, please create a discussion or
             reply to the issue. I will follow up.
 
-            For full info on how to contribute, please check out our [contributing
-            guide](../CONTRIBUTING.md).
+            For full info on how to contribute, please check out our [contributing guide](../CONTRIBUTING.md).
