@@ -20,5 +20,7 @@ func main() {
 			os.Exit(-1)
 		}
 		readArticle(os.Args[2])
+	case "following-tags":
+		followingTags()
 	}
 }
