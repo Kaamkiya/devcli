@@ -1,0 +1,29 @@
+= Contributing
+
+== Issues
+
+Do you have a feature idea? Have you found a bug? Create an issue!
+
+**Before** posting an issue, please make sure that...
+
+. There is no open issue that touches on your topic
+. It follows the link:./CODE_OF_CONDUCT.adoc[Code of Conduct]
+. It reads politely. I don't like reading text that sounds rude, so please be
+  kind!
+. Be descriptive.
+
+== Pull Requests
+
+Is your PR related to an issue? If so, please respond to that issue with a
+message saying that you can work on solving that issue.
+
+**Before** submitting a PR, please make sure that...
+
+. All code follows the official style guides. (
+  https://asciidoctor.org/docs/asciidoc-recommended-practices/[AsciiDoc best
+  practices], https://google.github.io/styleguide/go/[Go style guide]).
+  Go can easily be formatted with `go fmt`.
+. Code is well commented and/or readable.
+. It follows the link:./CODE_OF_CONDUCT.adoc[Code of Conduct]
+
+That's all for now.
