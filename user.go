@@ -18,13 +18,13 @@ func followingTags() {
 		panic(err)
 	}
 	defer res.Body.Close()
-	
+
 	var tags string
 	scanner := bufio.NewScanner(res.Body)
 	for scanner.Scan() {
 		tags += scanner.Text() + "\n"
 	}
-	
+
 	tagsList := make([]map[string]string, 1000)
 	json.Unmarshal([]byte(tags), &tagsList)
 
@@ -65,7 +65,7 @@ func displayUser(username string) {
 	}
 	defer res.Body.Close()
 	scanner := bufio.NewScanner(res.Body)
-	
+
 	var userApi string
 	for scanner.Scan() {
 		userApi += scanner.Text()
@@ -82,7 +82,7 @@ func displayUser(username string) {
 	}
 	if user["twitter_username"] != "" {
 		fmt.Println("\033[38;5;245m   Twitter Username:      \033[0m" + user["twitter_username"])
-	}	
+	}
 }
 
 func readingList() {
@@ -95,7 +95,7 @@ func readingList() {
 	}
 	defer res.Body.Close()
 	scanner := bufio.NewScanner(res.Body)
-	
+
 	var rawList string
 	for scanner.Scan() {
 		rawList += scanner.Text()

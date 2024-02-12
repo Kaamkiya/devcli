@@ -5,9 +5,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"os"
 	"io"
 	"net/http"
+	"os"
 	"time"
 
 	md "github.com/MichaelMure/go-term-markdown"
@@ -67,7 +67,7 @@ type Comment struct {
 		ProfileImage    string `json:"profile_image"`
 		ProfileImage90  string `json:"profile_image_90"`
 	} `json:"user"`
-	Children  []Comment `json:"children"`
+	Children []Comment `json:"children"`
 }
 
 func readArticle(articleName string) {
@@ -82,7 +82,7 @@ func readArticle(articleName string) {
 	json.Unmarshal(body, &article)
 
 	output := md.Render(article.MarkdownBody, 80, 6)
-	
+
 	fmt.Println("\033[1m" + article.Title + "\033[0m")
 	fmt.Println(string(output))
 
