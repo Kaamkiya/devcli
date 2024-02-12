@@ -20,6 +20,8 @@ func main() {
 			os.Exit(-1)
 		}
 		readArticle(os.Args[2])
+	case "write":
+		writeArticle()
 	case "following-tags":
 		followingTags()
 	case "followers":
