@@ -6,10 +6,101 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"io"
 	"net/http"
+	"time"
 
 	md "github.com/MichaelMure/go-term-markdown"
 )
+
+type Article struct {
+	TypeOf                 string    `json:"type_of"`
+	ID                     int       `json:"id"`
+	Title                  string    `json:"title"`
+	Description            string    `json:"description"`
+	ReadablePublishDate    string    `json:"readable_publish_date"`
+	Slug                   string    `json:"slug"`
+	Path                   string    `json:"path"`
+	URL                    string    `json:"url"`
+	CommentsCount          int       `json:"comments_count"`
+	PublicReactionsCount   int       `json:"public_reactions_count"`
+	CollectionID           any       `json:"collection_id"`
+	PublishedTimestamp     time.Time `json:"published_timestamp"`
+	PositiveReactionsCount int       `json:"positive_reactions_count"`
+	CoverImage             string    `json:"cover_image"`
+	SocialImage            string    `json:"social_image"`
+	CanonicalURL           string    `json:"canonical_url"`
+	CreatedAt              time.Time `json:"created_at"`
+	EditedAt               time.Time `json:"edited_at"`
+	CrosspostedAt          any       `json:"crossposted_at"`
+	PublishedAt            time.Time `json:"published_at"`
+	LastCommentAt          time.Time `json:"last_comment_at"`
+	ReadingTimeMinutes     int       `json:"reading_time_minutes"`
+	TagList                string    `json:"tag_list"`
+	Tags                   []string  `json:"tags"`
+	BodyHTML               string    `json:"body_html"`
+	MarkdownBody           string    `json:"body_markdown"`
+	User                   struct {
+		Name            string `json:"name"`
+		Username        string `json:"username"`
+		TwitterUsername string `json:"twitter_username"`
+		GithubUsername  string `json:"github_username"`
+		UserID          int    `json:"user_id"`
+		WebsiteURL      string `json:"website_url"`
+		ProfileImage    string `json:"profile_image"`
+		ProfileImage90  string `json:"profile_image_90"`
+	} `json:"user"`
+}
+
+type Comment struct {
+	TypeOf    string    `json:"type_of"`
+	IDCode    string    `json:"id_code"`
+	CreatedAt time.Time `json:"created_at"`
+	BodyHTML  string    `json:"body_html"`
+	User      struct {
+		Name            string `json:"name"`
+		Username        string `json:"username"`
+		TwitterUsername any    `json:"twitter_username"`
+		GithubUsername  string `json:"github_username"`
+		UserID          int    `json:"user_id"`
+		WebsiteURL      any    `json:"website_url"`
+		ProfileImage    string `json:"profile_image"`
+		ProfileImage90  string `json:"profile_image_90"`
+	} `json:"user"`
+	Children []struct {
+		TypeOf    string    `json:"type_of"`
+		IDCode    string    `json:"id_code"`
+		CreatedAt time.Time `json:"created_at"`
+		BodyHTML  string    `json:"body_html"`
+		User      struct {
+			Name            string `json:"name"`
+			Username        string `json:"username"`
+			TwitterUsername any    `json:"twitter_username"`
+			GithubUsername  string `json:"github_username"`
+			UserID          int    `json:"user_id"`
+			WebsiteURL      string `json:"website_url"`
+			ProfileImage    string `json:"profile_image"`
+			ProfileImage90  string `json:"profile_image_90"`
+		} `json:"user"`
+		Children []struct {
+			TypeOf    string    `json:"type_of"`
+			IDCode    string    `json:"id_code"`
+			CreatedAt time.Time `json:"created_at"`
+			BodyHTML  string    `json:"body_html"`
+			User      struct {
+				Name            string `json:"name"`
+				Username        string `json:"username"`
+				TwitterUsername any    `json:"twitter_username"`
+				GithubUsername  string `json:"github_username"`
+				UserID          int    `json:"user_id"`
+				WebsiteURL      any    `json:"website_url"`
+				ProfileImage    string `json:"profile_image"`
+				ProfileImage90  string `json:"profile_image_90"`
+			} `json:"user"`
+			Children []any `json:"children"`
+		} `json:"children"`
+	} `json:"children"`
+}
 
 func readArticle(articleName string) {
 	res, err := http.Get("https://dev.to/api/articles/" + articleName)
@@ -18,25 +109,36 @@ func readArticle(articleName string) {
 	}
 	defer res.Body.Close()
 
-	scanner := bufio.NewScanner(res.Body)
-	var articleApi string
-	for scanner.Scan() {
-		articleApi += scanner.Text() + "\n"
-	}
-	article := make(map[string]interface{})
-	json.Unmarshal([]byte(articleApi), &article)
+	body, _ := io.ReadAll(res.Body)
+	article := Article{}
+	json.Unmarshal(body, &article)
 
-	title := article["title"].(string)
-	body := article["body_markdown"].(string)
-	publishDate := article["readable_publish_date"].(string)
-	url := article["canonical_url"].(string)
-
-	output := md.Render(string(body), 80, 6)
+	output := md.Render(article.MarkdownBody, 80, 6)
 	
-	fmt.Println("\033[1m" + title + "\033[0m")
+	fmt.Println("\033[1m" + article.Title + "\033[0m")
 	fmt.Println(string(output))
-	fmt.Printf("\033[4;38;5;245mPublished on %s\n", publishDate)
-	fmt.Printf("See the original article here: \033[38;5;74m%s\033[0m\n", url)
+	fmt.Printf("\033[4;38;5;245mPublished on %s\n", article.ReadablePublishDate)
+	fmt.Printf("See the original article here: \033[38;5;74m %s \033[0m\n", article.URL)
+
+	/*Buggy- do not use yet.
+	if includes(os.Args, "--show-comments") || includes(os.Args, "-sc") {
+		res, err = http.Get("https://dev.to/api/comments?a_id=" + string(article.ID))
+		if err != nil {
+			panic(err)
+		}
+		defer res.Body.Close()
+		rawComments, err := io.ReadAll(res.Body)
+		if err != nil {
+			panic(err)
+		}
+		commentsList := make([]Comment, 1000)
+		json.Unmarshal(rawComments, &commentsList)
+		for _, comment := range commentsList {
+			fmt.Println(comment.User.Name)
+			fmt.Println(comment.BodyHTML)
+			fmt.Println()
+		}
+	}*/
 }
 
 func writeArticle() {
