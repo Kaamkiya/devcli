@@ -1,6 +1,6 @@
 = Devcli
 
-A CLI client for [DEV.to](https://dev.to).
+A CLI client for https://dev.to/[DEV.to].
 
 == About Devcli
 
