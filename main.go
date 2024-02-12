@@ -24,5 +24,12 @@ func main() {
 		followingTags()
 	case "followers":
 		followers()
+	case "user":
+		if len(os.Args) < 3 {
+			fmt.Println(`Usage: devcli user <username>`)
+		}
+		displayUser(os.Args[2])
+	case "readinglist":
+		readingList()
 	}
 }
