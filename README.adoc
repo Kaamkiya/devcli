@@ -13,6 +13,7 @@ not read DEV articles on the CLI?" So here I am, with a CLI app just for that.
 * Seeing users
 * Seeing your follower list
 * Seeing your reading list
+* Viewing the most recent posts
 
 == Contributing
 
