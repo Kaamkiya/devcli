@@ -29,9 +29,21 @@ func main() {
 	case "user":
 		if len(os.Args) < 3 {
 			fmt.Println(`Usage: devcli user <username>`)
+			os.Exit(-1)
 		}
 		displayUser(os.Args[2])
 	case "readinglist":
 		readingList()
+	case "help":
+		fmt.Println(`devcli help
+
+Commands:
+  read                print an article so that you can read it
+  user                show information about a user
+  following-tags      show all of the tags that you follow
+  followers           write a list of all of your followers
+  readinglist         print your reading list and the command to use to read the article`)
+	default:
+		fmt.Println("Not a valid command. Run \033[38;5;245mdevcli help\033[0m for help.")
 	}
 }
