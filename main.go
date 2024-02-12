@@ -22,5 +22,7 @@ func main() {
 		readArticle(os.Args[2])
 	case "following-tags":
 		followingTags()
+	case "followers":
+		followers()
 	}
 }
