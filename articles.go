@@ -142,6 +142,9 @@ func readArticle(articleName string) {
 }
 
 func writeArticle() {
+	fmt.Println("\033[33;1mNot Working\033[0m.")
+	fmt.Println("This function does not yet work. It is temporarily unavailable")
+	os.Exit(0)
 	scanner := bufio.NewScanner(os.Stdin)
 
 	var title string
@@ -180,8 +183,13 @@ func writeArticle() {
   "title": "%s",
   "body_markdown": "%s",
   "published": %t,
-  "description": "%s"
-}`, title, markdownBytes, published, description))
+  "description": "%s",
+  "series": null,
+  "main_image": null,
+  "canonical_url": null,
+  "organization_id": null,
+  "tags": "discuss, healthydebate"
+}`, title, string(markdownBytes), published, description))
 
 	client := &http.Client{}
 	req, err := http.NewRequest("POST", "https://dev.to/api/articles/", bytes.NewBuffer(article))
@@ -195,4 +203,10 @@ func writeArticle() {
 		panic(err)
 	}
 	defer res.Body.Close()
+	fmt.Println(res)
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(body)
 }
