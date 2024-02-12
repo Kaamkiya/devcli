@@ -210,3 +210,19 @@ func writeArticle() {
 	}
 	fmt.Println(body)
 }
+
+func recentlyPosted() {
+	res, err := http.Get("https://dev.to/api/articles/latest")
+	if err != nil {
+		panic(err)
+	}
+	defer res.Body.Close()
+
+	var articles []Article
+	body, err := io.ReadAll(res.Body)
+	json.Unmarshal(body, &articles)
+
+	for _, article := range articles {
+		fmt.Printf("%s \033[38;5;245m devcli read %s \033[0m\n", article.Title, article.Path[1:])
+	}
+}

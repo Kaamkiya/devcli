@@ -22,6 +22,9 @@ func main() {
 		readArticle(os.Args[2])
 	case "write":
 		writeArticle()
+	case "latest":
+	case "recent":
+		recentlyPosted()
 	case "following-tags":
 		followingTags()
 	case "followers":
