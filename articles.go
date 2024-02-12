@@ -67,39 +67,7 @@ type Comment struct {
 		ProfileImage    string `json:"profile_image"`
 		ProfileImage90  string `json:"profile_image_90"`
 	} `json:"user"`
-	Children []struct {
-		TypeOf    string    `json:"type_of"`
-		IDCode    string    `json:"id_code"`
-		CreatedAt time.Time `json:"created_at"`
-		BodyHTML  string    `json:"body_html"`
-		User      struct {
-			Name            string `json:"name"`
-			Username        string `json:"username"`
-			TwitterUsername any    `json:"twitter_username"`
-			GithubUsername  string `json:"github_username"`
-			UserID          int    `json:"user_id"`
-			WebsiteURL      string `json:"website_url"`
-			ProfileImage    string `json:"profile_image"`
-			ProfileImage90  string `json:"profile_image_90"`
-		} `json:"user"`
-		Children []struct {
-			TypeOf    string    `json:"type_of"`
-			IDCode    string    `json:"id_code"`
-			CreatedAt time.Time `json:"created_at"`
-			BodyHTML  string    `json:"body_html"`
-			User      struct {
-				Name            string `json:"name"`
-				Username        string `json:"username"`
-				TwitterUsername any    `json:"twitter_username"`
-				GithubUsername  string `json:"github_username"`
-				UserID          int    `json:"user_id"`
-				WebsiteURL      any    `json:"website_url"`
-				ProfileImage    string `json:"profile_image"`
-				ProfileImage90  string `json:"profile_image_90"`
-			} `json:"user"`
-			Children []any `json:"children"`
-		} `json:"children"`
-	} `json:"children"`
+	Children  []Comment `json:"children"`
 }
 
 func readArticle(articleName string) {
@@ -117,28 +85,29 @@ func readArticle(articleName string) {
 	
 	fmt.Println("\033[1m" + article.Title + "\033[0m")
 	fmt.Println(string(output))
-	fmt.Printf("\033[4;38;5;245mPublished on %s\n", article.ReadablePublishDate)
-	fmt.Printf("See the original article here: \033[38;5;74m %s \033[0m\n", article.URL)
 
-	/*Buggy- do not use yet.
 	if includes(os.Args, "--show-comments") || includes(os.Args, "-sc") {
-		res, err = http.Get("https://dev.to/api/comments?a_id=" + string(article.ID))
+		commentsRes, err := http.Get(fmt.Sprintf("https://dev.to/api/comments?a_id=%d", article.ID))
 		if err != nil {
 			panic(err)
 		}
-		defer res.Body.Close()
-		rawComments, err := io.ReadAll(res.Body)
+		defer commentsRes.Body.Close()
+		rawComments, err := io.ReadAll(commentsRes.Body)
 		if err != nil {
 			panic(err)
 		}
 		commentsList := make([]Comment, 1000)
 		json.Unmarshal(rawComments, &commentsList)
+		fmt.Printf("%d comments: \n", len(commentsList))
 		for _, comment := range commentsList {
-			fmt.Println(comment.User.Name)
-			fmt.Println(comment.BodyHTML)
+			fmt.Println("  " + comment.User.Name + ":")
+			fmt.Println("    " + comment.BodyHTML)
 			fmt.Println()
 		}
-	}*/
+	}
+
+	fmt.Printf("\033[4;38;5;245mPublished on %s\n", article.ReadablePublishDate)
+	fmt.Printf("See the original article here: \033[38;5;74m %s \033[0m\n", article.URL)
 }
 
 func writeArticle() {
