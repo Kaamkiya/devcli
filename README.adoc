@@ -17,7 +17,8 @@ not read DEV articles on the CLI?" So here I am, with a CLI app just for that.
 
 == Contributing
 
-
+So you want to contribute? Sure! I accept PRs. See the 
+link:.github/CONTRIBUTING.adoc[guidelines] for details.
 
 == License
 
