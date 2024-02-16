@@ -10,7 +10,7 @@ import (
 	"os"
 	"time"
 
-	md "github.com/MichaelMure/go-term-markdown"
+	"jaytaylor.com/html2text"
 )
 
 type Article struct {
@@ -81,10 +81,14 @@ func readArticle(articleName string) {
 	article := Article{}
 	json.Unmarshal(body, &article)
 
-	output := md.Render(article.MarkdownBody, 80, 6)
+	output, err := html2text.FromString(article.BodyHTML, html2text.Options{PrettyTables: true})
+
+	if err != nil {
+		panic(err)
+	}
 
 	fmt.Println("\033[1m" + article.Title + "\033[0m")
-	fmt.Println(string(output))
+	fmt.Println(output)
 
 	if includes(os.Args, "--show-comments") || includes(os.Args, "-sc") {
 		commentsRes, err := http.Get(fmt.Sprintf("https://dev.to/api/comments?a_id=%d", article.ID))
@@ -98,10 +102,15 @@ func readArticle(articleName string) {
 		}
 		commentsList := make([]Comment, 1000)
 		json.Unmarshal(rawComments, &commentsList)
-		fmt.Printf("%d comments: \n", len(commentsList))
+		fmt.Printf("\033[1m%d comments: \n\033[0m", len(commentsList))
+		
 		for _, comment := range commentsList {
-			fmt.Println("  " + comment.User.Name + ":")
-			fmt.Println("    " + comment.BodyHTML)
+			fmt.Println("\033[31m" + comment.User.Name + "\033[0m:")
+			body, err := html2text.FromString(comment.BodyHTML, html2text.Options{PrettyTables: true})
+			if err != nil {
+				panic(err)
+			}
+			fmt.Println(body)
 			fmt.Println()
 		}
 	}
