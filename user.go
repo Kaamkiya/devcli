@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
+	"io"
+	"math"
 	"net/http"
 	"os"
 )
@@ -19,14 +21,12 @@ func followingTags() {
 	}
 	defer res.Body.Close()
 
-	var tags string
-	scanner := bufio.NewScanner(res.Body)
-	for scanner.Scan() {
-		tags += scanner.Text() + "\n"
+	tags, err := io.ReadAll(res.Body)
+	if err != nil {
+		panic(err)
 	}
-
 	tagsList := make([]map[string]string, 1000)
-	json.Unmarshal([]byte(tags), &tagsList)
+	json.Unmarshal(tags, &tagsList)
 
 	for _, tag := range tagsList {
 		fmt.Println(tag["name"])
@@ -43,15 +43,14 @@ func followers() {
 	}
 	defer res.Body.Close()
 
-	var rawFollowers string
-	scanner := bufio.NewScanner(res.Body)
-	for scanner.Scan() {
-		rawFollowers += scanner.Text() + "\n"
+	rawFollowers, err := io.ReadAll(res.Body)
+	if err != nil {
+		panic(err)
 	}
-
+	
 	// 1000 is the max amount of users we can request
 	followers := make([]map[string]string, 1000)
-	json.Unmarshal([]byte(rawFollowers), &followers)
+	json.Unmarshal(rawFollowers, &followers)
 	for _, follower := range followers {
 		fmt.Println(follower["name"])
 	}
@@ -94,21 +93,20 @@ func readingList() {
 		panic(err)
 	}
 	defer res.Body.Close()
-	scanner := bufio.NewScanner(res.Body)
 
-	var rawList string
-	for scanner.Scan() {
-		rawList += scanner.Text()
+	rawList, err := io.ReadAll(res.Body)
+	if err != nil {
+		panic(err)
 	}
 
 	list := make([]map[string]interface{}, 1000)
-	json.Unmarshal([]byte(rawList), &list)
+	json.Unmarshal(rawList, &list)
 
 	for _, e := range list {
 		article := e["article"].(map[string]interface{})
 		title := article["title"].(string)
-		path := article["path"].(string)
-		fmt.Println(title + " - \033[38;5;245mdevcli read " + path[1:] + "\033[0m")
+		id := article["id"].(float64)
+		fmt.Printf("%s - \033[38;5;245mdevcli read %d \033[0m\n", title, math.Round(id))
 	}
 }
 
