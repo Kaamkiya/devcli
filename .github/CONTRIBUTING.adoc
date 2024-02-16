@@ -17,6 +17,8 @@ Do you have a feature idea? Have you found a bug? Create an issue!
 Is your PR related to an issue? If so, please respond to that issue with a
 message saying that you can work on solving that issue.
 
+**ALL COMMIT MESSAGES SHOULD ADHERE TO https://dev.to/anthonyvii/be-a-better-developer-with-these-git-good-practices-2dim[THIS GUIDE]**
+
 **Before** submitting a PR, please make sure that...
 
 . All code follows the official style guides. (
