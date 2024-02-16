@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"math"
 	"net/http"
 	"os"
 )
@@ -105,8 +104,8 @@ func readingList() {
 	for _, e := range list {
 		article := e["article"].(map[string]interface{})
 		title := article["title"].(string)
-		id := article["id"].(float64)
-		fmt.Printf("%s - \033[38;5;245mdevcli read %d \033[0m\n", title, math.Round(id))
+		path := article["path"].(string)
+		fmt.Printf("%s - \033[38;5;245mdevcli read %s \033[0m\n", title, path[1:])
 	}
 }
 
