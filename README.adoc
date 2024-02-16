@@ -1,19 +1,100 @@
+image::https://socialify.git.ci/Kaamkiya/devcli/image?description=1&descriptionEditable=A%20CLI%20client%20for%20Dev.to&font=Source%20Code%20Pro&forks=1&issues=1&language=1&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Dark[]
+
 = Devcli
 
 A CLI client for https://dev.to/[DEV.to].
 
 == About Devcli
 
-I, personally, love terminals. And I spend time on DEV.to. So I thought "Why
-not read DEV articles on the CLI?" So here I am, with a CLI app just for that.
+I, personally, love terminals. And I often read articles on https://dev.to/[DEV.to].
+So I thought "Why not read DEV articles on the CLI?"
+So here I am, with a CLI app just for that.
 
 == Features
 
-* Reading articles
+* Reading articles (+ showing the comments)
 * Seeing users
-* Seeing your follower list
-* Seeing your reading list
-* Viewing the most recent posts
+* Fetching and printing your follower list
+* Seeing your reading list (and the devcli command to read them!)
+* Viewing the 30 most recent posts
+
+== Installation
+
+==== Option 1: With the Go CLI (recommended)
+
+This way requires the Go CLI, which you can download from https://go.dev/dl/[here].
+If you don't want that, skip ahead to the "Prebuilt Binaries" section.
+
+[source,bash]
+----
+go install github.com/Kaamkiya/devcli
+----
+
+Now skip to the "Usage" section to get started.
+
+==== Option 2: Prebuilt Binaries
+
+This way is somewhat unstable, as I do not have all the devices required to run tests.
+If you find a bug, please https://github.com/Kaamkiya/devcli/issues/new/choose[create an issue].
+
+Go to the https://github.com/Kaamkiya/devcli/releases[releases] page.
+
+Next, select the one for your system.
+
+If using Linux, select the Linux tarball.
+And so on like that. 
+
+Now, unpack the tarball, however that works on your system.
+
+Try the `tar` command.
+
+On Linux, you can do this:
+
+[source,bash]
+----
+tar -xzf /path/to/devcli/download.tar.gz
+----
+
+Switch in to the direcotry that you installed it to:
+
+[source,bash]
+----
+cd /path/to/devcli/
+----
+
+Now type this:
+
+[source,bash]
+----
+./devcli help
+----
+
+If all went well, that should print a help message! You can now move on.
+
+If that failed, try restarting. If it still fails, file an issue.
+
+== Usage
+
+To get started, add devcli to your `$PATH`. On Linux/MacOS:
+
+[source,bash]
+----
+export PATH="$PATH:$GOPATH" # use this if you installed with the Go CLI
+
+# otherwise, do this
+export PATH="$PATH:/path/to/devcli" # /path/to/devcli is wherever you unpacked the tarball to.
+----
+
+Now, try this:
+
+[source,bash]
+----
+devcli read 1690174
+----
+
+If all went well, the text that was just printed to your screen is an article (by me!) about why Go is awesome.
+
+Otherwise, restart the installation steps. If it still fails, file a bug report.
 
 == Contributing
 
