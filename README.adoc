@@ -79,7 +79,7 @@ To get started, add devcli to your `$PATH`. On Linux/MacOS:
 
 [source,bash]
 ----
-export PATH="$PATH:$GOPATH" # use this if you installed with the Go CLI
+export PATH="$PATH:$(go env GOPATH)" # use this if you installed with the Go CLI
 
 # otherwise, do this
 export PATH="$PATH:/path/to/devcli" # /path/to/devcli is wherever you unpacked the tarball to.
