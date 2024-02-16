@@ -15,7 +15,7 @@ func main() {
 	case "read":
 		if len(os.Args) < 3 {
 			fmt.Println(`Usage: 
-  devcli read <author>/<article> [<options>]
+  devcli read <author>/<article_slug> [<options>]
   devcli read <article_id> [<options>]`)
 			os.Exit(-1)
 		}
@@ -45,7 +45,9 @@ Commands:
   user                show information about a user
   following-tags      show all of the tags that you follow
   followers           write a list of all of your followers
-  readinglist         print your reading list and the command to use to read the article`)
+  readinglist         print your reading list and the command to use to read the article
+  latest              print the IDs of the 30 most recently written articles
+  recent              same as latest`)
 	default:
 		fmt.Println("Not a valid command. Run \033[38;5;245mdevcli help\033[0m for help.")
 	}

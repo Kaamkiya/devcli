@@ -96,6 +96,13 @@ If all went well, the text that was just printed to your screen is an article (b
 
 Otherwise, restart the installation steps. If it still fails, file a bug report.
 
+To get help if you ever need it, just use the `help` subcommand:
+
+[source,bash]
+----
+devcli help
+----
+
 == Contributing
 
 So you want to contribute? Sure! I accept PRs. See the 
