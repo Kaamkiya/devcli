@@ -46,7 +46,7 @@ func followers() {
 	if err != nil {
 		panic(err)
 	}
-	
+
 	// 1000 is the max amount of users we can request
 	followers := make([]map[string]string, 1000)
 	json.Unmarshal(rawFollowers, &followers)

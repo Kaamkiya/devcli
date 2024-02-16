@@ -92,7 +92,7 @@ func readArticle(articleName string) {
 
 	if includes(os.Args, "--show-comments") || includes(os.Args, "-sc") {
 		hr, _ := html2text.FromString("<hr/>")
-		fmt.Printf("\n%s\n", hr) 
+		fmt.Printf("\n%s\n", hr)
 		commentsRes, err := http.Get(fmt.Sprintf("https://dev.to/api/comments?a_id=%d", article.ID))
 		if err != nil {
 			panic(err)
@@ -105,7 +105,7 @@ func readArticle(articleName string) {
 		commentsList := make([]Comment, 1000)
 		json.Unmarshal(rawComments, &commentsList)
 		fmt.Printf("\033[1m%d comments: \n\033[0m", len(commentsList))
-		
+
 		for _, comment := range commentsList {
 			fmt.Println("\033[31m" + comment.User.Name + "\033[0m:")
 			body, err := html2text.FromString(comment.BodyHTML, html2text.Options{PrettyTables: true})
