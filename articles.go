@@ -91,6 +91,8 @@ func readArticle(articleName string) {
 	fmt.Println(output)
 
 	if includes(os.Args, "--show-comments") || includes(os.Args, "-sc") {
+		hr, _ := html2text.FromString("<hr/>")
+		fmt.Printf("\n%s\n", hr) 
 		commentsRes, err := http.Get(fmt.Sprintf("https://dev.to/api/comments?a_id=%d", article.ID))
 		if err != nil {
 			panic(err)
