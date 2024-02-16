@@ -55,7 +55,7 @@ On Linux, you can do this:
 tar -xzf /path/to/devcli/download.tar.gz
 ----
 
-Switch in to the direcotry that you installed it to:
+Switch in to the directory that you installed it to:
 
 [source,bash]
 ----
