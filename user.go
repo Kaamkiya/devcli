@@ -55,7 +55,6 @@ func followers() {
 	}
 }
 
-/* ANY USER */
 func displayUser(username string) {
 	res, err := http.Get("https://dev.to/api/users/by_username?url=" + username)
 	if err != nil {
@@ -83,6 +82,7 @@ func displayUser(username string) {
 	}
 }
 
+/* ANY USER */
 func readingList() {
 	client := http.Client{}
 	req, _ := http.NewRequest("GET", "https://dev.to/api/readinglist", nil)
@@ -109,4 +109,24 @@ func readingList() {
 	}
 }
 
-func articles() {}
+func myArticles() {
+	client := http.Client{}
+	req, _ := http.NewRequest("GET", "https://dev.to/api/articles/me/all", nil)
+	req.Header.Set("api-key", os.Getenv("DEV_API_KEY"))
+	res, err := client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	defer res.Body.Close()
+
+	rawList, err := io.ReadAll(res.Body)
+	if err != nil {
+		panic(err)
+	}
+
+	list := make([]Article, 1000)
+	json.Unmarshal(rawList, &list)
+	for _, item := range list {
+		fmt.Println(item.Title)
+	}
+}
