@@ -49,7 +49,8 @@ Commands:
   followers           write a list of all of your followers
   readinglist         print your reading list and the command to use to read the article
   latest              print the IDs of the 30 most recently written articles
-  recent              same as latest`)
+  recent              same as latest
+  my-articles         print a list of all of your articles`)
 	default:
 		fmt.Println("Not a valid command. Run \033[38;5;245mdevcli help\033[0m for help.")
 	}
