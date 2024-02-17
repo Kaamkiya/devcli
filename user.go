@@ -124,7 +124,7 @@ func myArticles() {
 		panic(err)
 	}
 
-	list := make([]Article, 1000)
+	list := make([]Article, 30)
 	json.Unmarshal(rawList, &list)
 	for _, item := range list {
 		fmt.Println(item.Title)
