@@ -70,7 +70,14 @@ type Comment struct {
 	Children []Comment `json:"children"`
 }
 
+/*
+	Read an article.
+
+If the provided subcommand is read, fetch the given article by ID or slug, and
+print it to the terminal.
+*/
 func readArticle(articleName string) {
+	// get the article from the API
 	res, err := http.Get("https://dev.to/api/articles/" + articleName)
 	if err != nil {
 		panic(err)
@@ -81,18 +88,19 @@ func readArticle(articleName string) {
 	article := Article{}
 	json.Unmarshal(body, &article)
 
+	// convert from html to text, so that the user can read the article and not HTML
 	output, err := html2text.FromString(article.BodyHTML, html2text.Options{PrettyTables: true})
 
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println("\033[1m" + article.Title + "\033[0m")
-	fmt.Println(output)
+	fmt.Println("\033[1m" + article.Title + "\033[0m") // print the title
+	fmt.Println(output) // print the article
 
+	// and if the user wants to, print the comments
 	if includes(os.Args, "--show-comments") || includes(os.Args, "-sc") {
-		hr, _ := html2text.FromString("<hr/>")
-		fmt.Printf("\n%s\n", hr)
+		fmt.Println("\n") // line break before comments
 		commentsRes, err := http.Get(fmt.Sprintf("https://dev.to/api/comments?a_id=%d", article.ID))
 		if err != nil {
 			panic(err)
@@ -102,25 +110,35 @@ func readArticle(articleName string) {
 		if err != nil {
 			panic(err)
 		}
-		commentsList := make([]Comment, 1000)
+		commentsList := make([]Comment, 1000) // make a list of 1000 comments
 		json.Unmarshal(rawComments, &commentsList)
-		fmt.Printf("\033[1m%d comments: \n\033[0m", len(commentsList))
+		fmt.Printf("\033[1m%d comments: \n\033[0m", len(commentsList)) // print the amount of comments in bold
+		// bold to make it easier to tell where the article stops and the comments start
 
 		for _, comment := range commentsList {
+			// print the author of the comment in red so you can tell where one comment starts and the other stops
 			fmt.Println("\033[31m" + comment.User.Name + "\033[0m:")
 			body, err := html2text.FromString(comment.BodyHTML, html2text.Options{PrettyTables: true})
 			if err != nil {
 				panic(err)
 			}
+			// print the comment
 			fmt.Println(body)
 			fmt.Println()
 		}
 	}
 
+	// print the date of publish and a link to the original article
 	fmt.Printf("\033[4;38;5;245mPublished on %s\n", article.ReadablePublishDate)
 	fmt.Printf("See the original article here: \033[38;5;74m %s \033[0m\n", article.URL)
 }
 
+/*
+	Write an article.
+
+FIXME: this command does *not* work as of now.
+Accepts no parameters.
+*/
 func writeArticle() {
 	fmt.Println("\033[33;1mNot Working\033[0m.")
 	fmt.Println("This function does not yet work. It is temporarily unavailable")
@@ -191,6 +209,11 @@ func writeArticle() {
 	fmt.Println(body)
 }
 
+/*
+	Get the latest articles.
+
+Gets the 30 most recently published articles from dev.to.
+*/
 func recentlyPosted() {
 	res, err := http.Get("https://dev.to/api/articles/latest")
 	if err != nil {
@@ -202,7 +225,8 @@ func recentlyPosted() {
 	body, err := io.ReadAll(res.Body)
 	json.Unmarshal(body, &articles)
 
+	// for each article, print the title and the command to use to read it
 	for _, article := range articles {
-		fmt.Printf("%s \033[38;5;245m devcli read %s \033[0m\n", article.Title, article.Path[1:])
+		fmt.Printf("%s \033[38;5;245m devcli read %d \033[0m\n", article.Title, article.ID)
 	}
 }
