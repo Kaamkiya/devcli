@@ -13,6 +13,7 @@ import (
 	"jaytaylor.com/html2text"
 )
 
+// An Article contains the values of the response from the API
 type Article struct {
 	TypeOf                 string    `json:"type_of"`
 	ID                     int       `json:"id"`
@@ -52,6 +53,7 @@ type Article struct {
 	} `json:"user"`
 }
 
+// A Comment holds the values given for a comment, like the author (Comment.User)
 type Comment struct {
 	TypeOf    string    `json:"type_of"`
 	IDCode    string    `json:"id_code"`
@@ -70,12 +72,11 @@ type Comment struct {
 	Children []Comment `json:"children"`
 }
 
-/*
-	Read an article.
 
-If the provided subcommand is read, fetch the given article by ID or slug, and
-print it to the terminal.
-*/
+// Read an article.
+// 
+// If the provided subcommand is read, fetch the given article by ID or slug, and
+// print it to the terminal.
 func readArticle(articleName string) {
 	// get the article from the API
 	res, err := http.Get("https://dev.to/api/articles/" + articleName)
@@ -133,12 +134,10 @@ func readArticle(articleName string) {
 	fmt.Printf("See the original article here: \033[38;5;74m %s \033[0m\n", article.URL)
 }
 
-/*
-	Write an article.
-
-FIXME: this command does *not* work as of now.
-Accepts no parameters.
-*/
+// Write an article.
+//
+// FIXME: this command does *not* work as of now.
+// Accepts no parameters.
 func writeArticle() {
 	fmt.Println("\033[33;1mNot Working\033[0m.")
 	fmt.Println("This function does not yet work. It is temporarily unavailable")
@@ -209,11 +208,9 @@ func writeArticle() {
 	fmt.Println(body)
 }
 
-/*
-	Get the latest articles.
-
-Gets the 30 most recently published articles from dev.to.
-*/
+// Get the latest articles.
+// 
+// Gets the 30 most recently published articles from dev.to.
 func recentlyPosted() {
 	res, err := http.Get("https://dev.to/api/articles/latest")
 	if err != nil {
