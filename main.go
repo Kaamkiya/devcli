@@ -5,7 +5,6 @@ import (
 	"os"
 )
 
-
 /*
 	Main function.
 
@@ -14,6 +13,7 @@ This function recieves all of the command line arguments and runs the
 appropriate function or subcommand for each one.
 
 For example:
+
 	In the shell:
 		$ devcli user kaamkiya
 	This file would then recieve the subcommand "user".

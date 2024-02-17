@@ -6,8 +6,11 @@ package main
 Parameters
 ----------
 slice : []string
+
 	the array to search
+
 query : string
+
 	the value to search for
 
 Returns

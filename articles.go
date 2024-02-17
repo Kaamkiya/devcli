@@ -72,9 +72,8 @@ type Comment struct {
 	Children []Comment `json:"children"`
 }
 
-
 // Read an article.
-// 
+//
 // If the provided subcommand is read, fetch the given article by ID or slug, and
 // print it to the terminal.
 func readArticle(articleName string) {
@@ -97,7 +96,7 @@ func readArticle(articleName string) {
 	}
 
 	fmt.Println("\033[1m" + article.Title + "\033[0m") // print the title
-	fmt.Println(output) // print the article
+	fmt.Println(output)                                // print the article
 
 	// and if the user wants to, print the comments
 	if includes(os.Args, "--show-comments") || includes(os.Args, "-sc") {
@@ -209,7 +208,7 @@ func writeArticle() {
 }
 
 // Get the latest articles.
-// 
+//
 // Gets the 30 most recently published articles from dev.to.
 func recentlyPosted() {
 	res, err := http.Get("https://dev.to/api/articles/latest")
