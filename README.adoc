@@ -105,8 +105,20 @@ devcli help
 
 == Contributing
 
-So you want to contribute? Sure! I accept PRs. See the 
-link:.github/CONTRIBUTING.adoc[guidelines] for details.
+So you want to contribute? Sure! I accept PRs. See the link:.github/CONTRIBUTING.adoc[guidelines] for details.
+
+You can see the to-do list below for things to help with :)
+
+== Todo
+
+* Fix writing an article command
+* Add error messages if the user has not set an API key
+* Add function to send reactions (fire, unicorn, etc.)
+* Add function to post comments
+* Update `--show-comments` flag to show *all* comments, not just top-level comments
+* Use pager to read articles instead of just printing
+* When showing reading list, print `devcli read <article_id>` instead of `devcli read <article_path>` to declutter output
+* Find a new HTML2Text converter (the current one could be better)
 
 == License
 
