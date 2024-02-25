@@ -17,16 +17,10 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
-            Thanks for the issue, we will take it into consideration! I/We are
-            busy working on many types of features, please give us time to get
-            back to you.
+            Thanks for the issue, we will take it into consideration! I/We are busy working on many types of features, please give us time to get back to you.
             
-            To any amazing contributors: [issues labeled `bug`](https://github.com/Kaamkiya/devcli/issues?q=is%3Aopen+label%3Abug)
-            are always up for grabs, but for feature requests, please wait until
-            we add a `ready for dev` before starting to work on it.
+            To any amazing contributors: [issues labeled `bug`](https://github.com/Kaamkiya/devcli/issues?q=is%3Aopen+label%3Abug) are always up for grabs, but for feature requests, please wait until we add a `ready for dev` label before starting to work on it.
 
-            To claim an issue to work on, please leave a comment. If you've
-            claimed the issue and need help, please create a discussion or
-            reply to the issue. I will follow up.
+            To claim an issue to work on, please leave a comment. If you've claimed the issue and need help, please create a discussion or comment on the issue. Someone (likely @Kaamkiya) will follow up.
 
             For full info on how to contribute, please check out our [contributing guide](../CONTRIBUTING.md).
