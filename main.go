@@ -22,18 +22,18 @@ For example:
 */
 func main() {
 	app := &cli.App{
-		Name: "devcli",
+		Name:    "devcli",
 		Version: "0.2.0",
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
-				Name: "show-comments",
+				Name:    "show-comments",
 				Aliases: []string{"c"},
-				Usage: "show comments on an article",
+				Usage:   "show comments on an article",
 			},
 		},
 		Commands: []*cli.Command{
 			{
-				Name: "read",
+				Name:  "read",
 				Usage: "read an article. (devcli read <author>/<article_slug>)",
 				Action: func(*cli.Context) error {
 					// TODO: allow the user to pick the article
@@ -50,7 +50,7 @@ func main() {
 				},
 			},
 			{
-				Name: "write",
+				Name:  "write",
 				Usage: "write an article - NOT YET WORKING",
 				Action: func(*cli.Context) error {
 					writeArticle()
@@ -58,16 +58,16 @@ func main() {
 				},
 			},
 			{
-				Name: "latest",
+				Name:    "latest",
 				Aliases: []string{"recent", "new"},
-				Usage: "fetch the 30 most recently posted articles on dev",
+				Usage:   "fetch the 30 most recently posted articles on dev",
 				Action: func(*cli.Context) error {
 					recentlyPosted()
 					return nil
 				},
 			},
 			{
-				Name: "following-tags",
+				Name:  "following-tags",
 				Usage: "fetch all of the tags that you follow",
 				Action: func(*cli.Context) error {
 					followingTags()
@@ -75,7 +75,7 @@ func main() {
 				},
 			},
 			{
-				Name: "followers",
+				Name:  "followers",
 				Usage: "print a list of your followers",
 				Action: func(*cli.Context) error {
 					followers()
@@ -83,7 +83,7 @@ func main() {
 				},
 			},
 			{
-				Name: "user",
+				Name:  "user",
 				Usage: "display information about a user",
 				Action: func(*cli.Context) error {
 					// TODO: allow the user to pick the username
@@ -92,7 +92,7 @@ func main() {
 				},
 			},
 			{
-				Name: "readinglist",
+				Name:  "readinglist",
 				Usage: "print your reading list",
 				Action: func(*cli.Context) error {
 					readingList()
@@ -103,13 +103,12 @@ func main() {
 	}
 
 	cli.VersionFlag = &cli.BoolFlag{
-		Name: "version",
+		Name:    "version",
 		Aliases: []string{"v", "V"},
-		Usage: "print version info and exit",
+		Usage:   "print version info and exit",
 	}
 
 	if err := app.Run(os.Args); err != nil {
 		panic(err)
 	}
 }
-
