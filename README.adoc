@@ -27,7 +27,14 @@ If you don't want that, skip ahead to the "Prebuilt Binaries" section.
 
 [source,bash]
 ----
-go install github.com/Kaamkiya/devcli
+# install the latest stable version (recommended)
+go install github.com/Kaamkiya/devcli@latest
+
+# install the current development version (only use this if developing devcli)
+go install github.com/Kaamkiya/devcli@main
+
+# install a specific version
+go install github.com/Kaamkiya/devcli@$VERSION
 ----
 
 Now skip to the "Usage" section to get started.
@@ -41,8 +48,7 @@ Go to the https://github.com/Kaamkiya/devcli/releases[releases] page.
 
 Next, select the one for your system.
 
-If using Linux, select the Linux tarball.
-And so on like that. 
+If using Linux, select the Linux tarball, for Darwin, select the Darwin tarball, and so on.
 
 Now, unpack the tarball, however that works on your system.
 
