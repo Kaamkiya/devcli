@@ -22,6 +22,8 @@ For example:
 */
 func main() {
 	app := &cli.App{
+		Name: "devcli",
+		Version: "0.2.0",
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
 				Name: "show-comments",
@@ -98,6 +100,12 @@ func main() {
 				},
 			},
 		},
+	}
+
+	cli.VersionFlag = &cli.BoolFlag{
+		Name: "version",
+		Aliases: []string{"v", "V"},
+		Usage: "print version info and exit",
 	}
 
 	if err := app.Run(os.Args); err != nil {
