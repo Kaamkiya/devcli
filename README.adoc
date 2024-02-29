@@ -2,7 +2,7 @@ image::https://socialify.git.ci/Kaamkiya/devcli/image?description=1&descriptionE
 
 = Devcli
 
-A CLI client for https://dev.to/[DEV.to].
+A CLI for https://dev.to/[DEV.to].
 
 == About Devcli
 
