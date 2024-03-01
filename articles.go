@@ -76,7 +76,7 @@ type Comment struct {
 //
 // If the provided subcommand is read, fetch the given article by ID or slug, and
 // print it to the terminal.
-func readArticle(articleName string) {
+func readArticle(articleName string, showComments bool) {
 	// get the article from the API
 	res, err := http.Get("https://dev.to/api/articles/" + articleName)
 	if err != nil {
@@ -99,7 +99,7 @@ func readArticle(articleName string) {
 	fmt.Println(output)                                // print the article
 
 	// and if the user wants to, print the comments
-	if includes(os.Args, "--show-comments") || includes(os.Args, "-sc") {
+	if showComments {
 		fmt.Println("\n") // line break before comments
 		commentsRes, err := http.Get(fmt.Sprintf("https://dev.to/api/comments?a_id=%d", article.ID))
 		if err != nil {

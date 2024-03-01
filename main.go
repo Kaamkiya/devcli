@@ -21,6 +21,8 @@ For example:
 	Then it would call the displayUser function, defined in user.go
 */
 func main() {
+	var showComments bool
+
 	app := &cli.App{
 		Name:    "devcli",
 		Version: "0.2.0",
@@ -30,15 +32,15 @@ func main() {
 				Name:    "show-comments",
 				Aliases: []string{"c"},
 				Usage:   "show comments on an article",
+				Destination: &showComments,
 			},
 		},
 		Commands: []*cli.Command{
 			{
 				Name:  "read",
 				Usage: "read an article. (devcli read <author>/<article_slug>)",
-				Action: func(*cli.Context) error {
-					// TODO: allow the user to pick the article
-					readArticle("kaamkiya/devcli-a-cli-for-devto-4a85")
+				Action: func(ctx *cli.Context) error {
+					readArticle(ctx.Args().Get(0), showComments)
 					return nil
 				},
 			},
