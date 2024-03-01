@@ -24,6 +24,7 @@ func main() {
 	app := &cli.App{
 		Name:    "devcli",
 		Version: "0.2.0",
+		UseShortOptionHandling: true,
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
 				Name:    "show-comments",
@@ -102,11 +103,15 @@ func main() {
 		},
 	}
 
+	// add a version flag (-v, -V, --version) to print the program version
 	cli.VersionFlag = &cli.BoolFlag{
 		Name:    "version",
 		Aliases: []string{"v", "V"},
 		Usage:   "print version info and exit",
 	}
+
+	// suggest commands if the user entered a non-existant one
+	app.Suggest = true
 
 	if err := app.Run(os.Args); err != nil {
 		panic(err)
