@@ -38,14 +38,6 @@ func main() {
 		},
 		Copyright: fmt.Sprintf("(c) 2024-%d under the GNU AGPLv3 License", time.Time.Year(time.Now())),
 		EnableBashCompletion: true,
-		Flags: []cli.Flag{
-			&cli.BoolFlag{
-				Name:    "show-comments",
-				Aliases: []string{"c"},
-				Usage:   "show comments on an article",
-				Destination: &showComments,
-			},
-		},
 		Commands: []*cli.Command{
 			{
 				Name:  "read",
@@ -53,6 +45,14 @@ func main() {
 				Action: func(ctx *cli.Context) error {
 					readArticle(ctx.Args().Get(0), showComments)
 					return nil
+				},
+				Flags: []cli.Flag{
+					&cli.BoolFlag{
+						Name:    "show-comments",
+						Aliases: []string{"c"},
+						Usage:   "show comments on an article",
+						Destination: &showComments,
+					},
 				},
 			},
 			{
