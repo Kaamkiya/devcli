@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"os"
+	"time"
 
 	"github.com/urfave/cli/v2"
 )
@@ -27,6 +29,15 @@ func main() {
 		Name:    "devcli",
 		Version: "0.2.0",
 		UseShortOptionHandling: true,
+		Usage: "A CLI for dev.to",
+		Authors: []*cli.Author{
+			&cli.Author{
+				Name:  "Kaamkiya",
+				Email: "codeberg.org/kaamkiya",
+			},
+		},
+		Copyright: fmt.Sprintf("(c) 2024-%d under the GNU AGPLv3 License", time.Time.Year(time.Now())),
+		EnableBashCompletion: true,
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
 				Name:    "show-comments",
