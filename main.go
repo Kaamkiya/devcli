@@ -26,17 +26,17 @@ func main() {
 	var showComments bool
 
 	app := &cli.App{
-		Name:    "devcli",
-		Version: "0.2.0",
+		Name:                   "devcli",
+		Version:                "0.2.0",
 		UseShortOptionHandling: true,
-		Usage: "A CLI for dev.to",
+		Usage:                  "A CLI for dev.to",
 		Authors: []*cli.Author{
 			&cli.Author{
 				Name:  "Kaamkiya",
 				Email: "codeberg.org/kaamkiya",
 			},
 		},
-		Copyright: fmt.Sprintf("(c) 2024-%d under the GNU AGPLv3 License", time.Time.Year(time.Now())),
+		Copyright:            fmt.Sprintf("(c) 2024-%d under the GNU AGPLv3 License", time.Time.Year(time.Now())),
 		EnableBashCompletion: true,
 		Commands: []*cli.Command{
 			{
@@ -48,9 +48,9 @@ func main() {
 				},
 				Flags: []cli.Flag{
 					&cli.BoolFlag{
-						Name:    "show-comments",
-						Aliases: []string{"c"},
-						Usage:   "show comments on an article",
+						Name:        "show-comments",
+						Aliases:     []string{"c"},
+						Usage:       "show comments on an article",
 						Destination: &showComments,
 					},
 				},
