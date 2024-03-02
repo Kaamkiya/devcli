@@ -128,5 +128,5 @@ You can see the to-do list below for things to help with :)
 
 == License
 
-This project uses the link:LICENSE.txt[MIT License].
+This project uses the link:LICENSE.txt[GNU Affero General Public License version 3.0] (GNU AGPLv3).
 
