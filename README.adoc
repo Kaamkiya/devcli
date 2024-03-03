@@ -1,8 +1,8 @@
-image::https://socialify.git.ci/Kaamkiya/devcli/image?description=1&descriptionEditable=A%20CLI%20for%20Dev.to&font=Source%20Code%20Pro&forks=1&issues=1&language=1&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Dark[]
-
 = Devcli
 
 A CLI for https://dev.to/[DEV.to].
+
+=== https://codeberg.org/Kaamkiya/devcli[MOVED TO CODEBERG]
 
 == About Devcli
 
